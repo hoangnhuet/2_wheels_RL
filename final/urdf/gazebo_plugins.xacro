@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <controlPeriod>0.001</controlPeriod>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
+      <ros>
+        <namespace>/final</namespace>
+        <remapping>cmd_vel:=cmd_vel</remapping>
+      </ros>
+      <updateRate>100.0</updateRate>
+      <leftJoint>LWJ</leftJoint>
+      <rightJoint>RWJ</rightJoint>
+      <wheelSeparation>0.287263490418646</wheelSeparation>
+      <wheelDiameter>0.07181587263</wheelDiameter>
+      <torque>5.0</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishTF>true</publishTF>
+    </plugin>
+  </gazebo>
+</robot>
+

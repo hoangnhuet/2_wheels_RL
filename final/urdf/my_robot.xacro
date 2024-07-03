@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="final" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Include robot URDF definitions -->
+  <xacro:include filename="robot_urdf.xacro"/>
+
+  <!-- Include transmission definitions -->
+  <xacro:include filename="transmision.xacro"/>
+
+  <!-- Include Gazebo plugins definitions -->
+  <xacro:include filename="gazebo_plugins.xacro"/>
+    <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+  <xacro:VLP-16 parent="H" name="velodyne" topic="/velodyne_points" hz="10" samples="360" gpu="true" min_angle="-3.14" max_angle="3.14" min_range="0.1">
+    <origin xyz="0.125 0 0.25" rpy="0 0 1.57" /> 
+  </xacro:VLP-16>
+</robot>
+

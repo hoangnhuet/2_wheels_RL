@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Include the camera Xacro file -->
+  <xacro:include filename="camera.xacro"/>
+
+  <!-- Include the Hokuyo laser Xacro file -->
+  <xacro:include filename="hokuyo_gpu.xacro"/>
+
+  <!-- Define the camera macro with topic name -->
+  <xacro:cam name="camera" parent="H" xyz="0 0 0.85" rpy="0 0 1.57" topic_name="camera/image_raw"/>
+
+  <!-- Base link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.36136077855937"/>
+      <inertia ixx="0.081967334564842" ixy="-3.4210723680635E-06" ixz="-3.91284547047023E-05" iyy="0.0884786743192248" iyz="-0.00231861382459098" izz="0.0107270419219255"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/base_link.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/base_link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Right wheel -->
+  <link name="RW">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.66362187408782"/>
+      <inertia ixx="0.0149331440705645" ixy="-7.0310527599993E-19" ixz="-3.56400971635067E-17" iyy="0.00789937751316691" iyz="-1.07234377907859E-18" izz="0.00789937751316691"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/RW.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/RW.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="RWJ" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="RW"/>
+    <axis xyz="-1 0 0"/>
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+
+  <!-- Left wheel -->
+  <link name="LW">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.66362187408782"/>
+      <inertia ixx="0.0149331440705645" ixy="-1.65714609173788E-17" ixz="-3.18068539323175E-17" iyy="0.00789937751316691" iyz="8.92935627369466E-19" izz="0.00789937751316691"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/LW.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/LW.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="LWJ" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="LW"/>
+    <axis xyz="-1 0 0"/>
+    <hardwareInterface>EffortJointInterface</hardwareInterface>
+  </joint>
+
+  <!-- H link -->
+  <link name="H">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.44614352354859"/>
+      <inertia ixx="0.000652294754639145" ixy="4.03458294640683E-05" ixz="3.77748545659174E-06" iyy="0.00124994464758745" iyz="-8.60157885805727E-06" izz="0.00109660895945627"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/H.STL"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://final/meshes/H.STL"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="HJ" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="H"/>
+    <axis xyz="0 0 1"/>
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+
+  <!-- Camera link -->
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 1.57"/>
+      <mass value="0.0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 1.57"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 1.57"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+    <parent link="H"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- Hokuyo Laser link -->
+  <xacro:laser_gpu name="hokuyo_link" parent="H" xyz="0.1 0.0 0.4" rpy="0 0 0" meshes="$(find final)/meshes">
+    <!-- Adjust xyz and rpy values as per your robot model -->
+  </xacro:laser_gpu>
+</robot>
+

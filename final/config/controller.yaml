@@ -1,0 +1,73 @@
+hj_position_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: 'HJ'
+
+  pid: 
+    p: 100.0
+    i: 0.01
+    d: 10.0
+
+  # Optional parameters
+  # The maximum velocity the controller is allowed to command
+  max_velocity: 1.0  # rad/s or m/s, depending on the joint type
+  # The minimum velocity the controller is allowed to command
+  min_velocity: -1.0  # rad/s or m/s, depending on the joint type
+
+  state_publish_rate:  50
+  action_monitor_rate: 10
+  
+left_wheel_effort_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: 'LWJ'
+
+  pid: 
+    p: 100.0
+    i: 0.01
+    d: 10.0
+
+  # Optional parameters
+  # The maximum velocity the controller is allowed to command
+  max_velocity: 1.0  # rad/s or m/s, depending on the joint type
+  # The minimum velocity the controller is allowed to command
+  min_velocity: -1.0  # rad/s or m/s, depending on the joint type
+
+  state_publish_rate:  50
+  action_monitor_rate: 10
+  
+  
+  
+  
+  
+right_wheel_effort_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: 'RWJ'
+
+  pid: 
+    p: 100.0
+    i: 0.01
+    d: 10.0
+
+  # Optional parameters
+  # The maximum velocity the controller is allowed to command
+  max_velocity: 1.0  # rad/s or m/s, depending on the joint type
+  # The minimum velocity the controller is allowed to command
+  min_velocity: -1.0  # rad/s or m/s, depending on the joint type
+
+  state_publish_rate:  50
+  action_monitor_rate: 10
+  
+  
+diff_drive_controller:
+  type: "diff_drive_controller/DiffDriveController"
+  left_wheel: "LWJ"
+  right_wheel: "RWJ"
+  publish_rate: 50
+  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.001]
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.001]
+  cmd_vel_timeout: 0.5
+  enable_odom_tf: true
+  wheel_separation: 0.287263490418646
+  wheel_radius: 0.07181587263
+  publish_cmd: true
+  velocity_rolling_window_size: 10
+  cmd_vel_topic: "/cmd_vel"

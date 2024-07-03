@@ -1,0 +1,17 @@
+<launch>
+  <!-- Argument to specify the robot description file -->
+  <arg name="model" default="$(find final)/urdf/final.xacro" />
+
+  <!-- Generate the robot description parameter from the xacro file -->
+  <param name="robot_description" command="$(find xacro)/xacro '$(arg model)'" />
+
+  <!-- Joint State Publisher GUI -->
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+
+  <!-- Robot State Publisher -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- RViz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find final)/urdf.rviz" />
+</launch>
+
